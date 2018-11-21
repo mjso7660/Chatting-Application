@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session, flash
 from flask_socketio import SocketIO
 from chatterbot import ChatBot
 import json as js
@@ -20,25 +20,46 @@ quizScore = 0
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 socketio = SocketIO(app)
-
 @app.route('/')
-def sessions():
-    return render_template('chat.html')
-
+def sess():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return render_template('chat.html')
+ 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['password'] != 'password' and request.form['username'] != 'admin':
+            flash('Invalid credentails')
+            error = 'Invalid credentials'
+        else:
+            session['logged_in'] = True
+            return redirect(url_for('sess'))
+    return render_template('login.html', error=error)
+'''
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
         if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            flash('wrong pss')
             error = 'Invalid Credentials. Please try again.'
         else:
-            return redirect(url_for('sessions'))
-    return render_template('login.html', error=error)
+            session['logged_in'] = True
+#            return redirect(url_for('sessions'))
+    return sessions()
 
-@app.route('/home')
-def sessions1():
-    return render_template('chat1.html')
+@app.route('/')
+def sessions():
+    if not session.get('logged_in'):
+        print('1')
+        return render_template('chat.html')
+    else:
+        print('2')
+        return render_template('login.html')
 
 @app.route('/demo2')
 def sessions2():
@@ -46,6 +67,7 @@ def sessions2():
 
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
+    
     
 
 @socketio.on('my event')
@@ -113,6 +135,6 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 			print(r)
 
 			socketio.emit('your response', r, callback=messageReceived)
-
+'''
 if __name__ == '__main__':
     socketio.run(app, debug=True)
