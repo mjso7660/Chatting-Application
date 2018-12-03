@@ -121,7 +121,8 @@ height: 5px;
 .link_forgot_pass {
 position: relative;
   margin-top: 0px;
-  margin-left: 30%;
+  margin-left:32%;
+  
   text-decoration: none;
   color: #999;
   font-size: 13px;
@@ -177,5 +178,17 @@ position: relative;
 }
 .cont_text_inputs > input:nth-child(4){
   transition-delay: 0.8s;
+}
+
+#error {
+	margin-left: 5%;
+	margin-right: 15%;
+	text-decoration: none;
+	color: #500;
+	font-size: 18px;
+	display: none;
+	float: left;
+	display: block;
+	align: center
 }
  

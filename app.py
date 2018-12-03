@@ -8,15 +8,27 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 socketio = SocketIO(app)
 
+username = ''
+
 @app.route('/')
 def sess():
+    '''
+    Directing to main page
+    1) If not logged in: return to register.html
+    2) If logged in: display the main page
+    '''
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return render_template('register.html')
     else:
         return render_template('chat.html')
  
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+	'''
+	!Decaded
+	Initial login page
+    Only keep if statment that JB edited
+	'''
 	error = None
 	if request.method == 'POST':
 		username = request.form['username']
@@ -32,15 +44,26 @@ def login():
 
 @app.route('/register', methods=['Get','POST'])
 def register():
+
     error = None
-    print('--------------------------{}------------------'.format(error))
+    print('--------------------------{}------------------'.format(request.form))
     if request.method == 'POST':
-        if request.form['password'] != 'password' or request.form['username'] != 'admin':
-            flash('Invalid credentails')
-            error = 'Invalid credentials'
+        #TODO: If signing UP
+        if request.form['email']:
+            username = request.form['username']
+            password = request.form['password']
+            password2 = request.form['password2']
+            if password != password2:
+                flash('Passwords dont match')
+                error = "Passwords don't match"
+        #If signin IN
         else:
-            session['logged_in'] = True
-            return redirect(url_for('sess'))
+            if request.form['password'] != 'password' or request.form['username'] != 'admin':
+                flash('Incorrect username/password')
+                error = 'Incorrect username/password'
+            else:
+                session['logged_in'] = True
+                return redirect(url_for('sess'))
     return render_template('register.html', error=error)
 
 def messageReceived(methods=['GET', 'POST']):
