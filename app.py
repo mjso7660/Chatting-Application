@@ -29,35 +29,19 @@ def login():
 			flash('Invalid credentails')
 			error = 'Invalid credentials'
 	return render_template('login.html', error=error)
-'''
-# Route for handling the login page logic
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-            flash('wrong pss')
-            error = 'Invalid Credentials. Please try again.'
-        else:
-            session['logged_in'] = True
-#            return redirect(url_for('sessions'))
-    return sessions()
-
-@app.route('/')
-def sessions():
-    if not session.get('logged_in'):
-        print('1')
-        return render_template('chat.html')
-    else:
-        print('2')
-        return render_template('login.html')
-
-@app.route('/demo2')
-def sessions2():
-    return render_template('chat2.html')
 
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
- '''
+    
+@socketio.on('my event')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: ' + str(json))
+#    //socketio.emit('my response', json, callback=messageReceived)
+    socketio.emit('your response', json, callback=messageReceived)
+    
+@socketio.on('search')
+def handle_search(json, methods=['GET', 'POST']):
+    print('received search: ' + str(json))
+
 if __name__ == '__main__':
     socketio.run(app, debug=True)
