@@ -30,6 +30,19 @@ def login():
 			error = 'Invalid credentials'
 	return render_template('login.html', error=error)
 
+@app.route('/register', methods=['Get','POST'])
+def register():
+    error = None
+    print('--------------------------{}------------------'.format(error))
+    if request.method == 'POST':
+        if request.form['password'] != 'password' or request.form['username'] != 'admin':
+            flash('Invalid credentails')
+            error = 'Invalid credentials'
+        else:
+            session['logged_in'] = True
+            return redirect(url_for('sess'))
+    return render_template('register.html', error=error)
+
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
     
