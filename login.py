@@ -24,3 +24,17 @@ def check_password(id, password):
 	for x in mycol.find({'id':id}):
 		print(x)
 		return check_encrypted_password(password, x['pw'])
+
+# not to be used
+def remove_account(id,password):
+	mycol.remove({'id':id})
+	print("removed id:" + id)
+def insert_account(id, password):
+	result = []
+	for x in mycol.find({'id': id}):
+		result.append(x)
+	if len(result) > 0:
+		return False
+	else:
+		mycol.insert_one({'id': id,'pw': encrypt_password(password)})
+		return True

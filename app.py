@@ -1,6 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from flask_socketio import SocketIO
 from login import check_password
+from login import insert_account
+from login import remove_account
 import json as js
 import login
 
@@ -21,30 +23,9 @@ def sess():
         return render_template('register.html')
     else:
         return render_template('chat.html')
- 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-	'''
-	!Decaded
-	Initial login page
-    Only keep if statment that JB edited
-	'''
-	error = None
-	if request.method == 'POST':
-		username = request.form['username']
-		password = request.form['password']
-		check = check_password(username, password)
-		if check:
-			session['logged_in'] = True
-			return redirect(url_for('sess'))
-		else:
-			flash('Invalid credentails')
-			error = 'Invalid credentials'
-	return render_template('login.html', error=error)
 
 @app.route('/register', methods=['Get','POST'])
 def register():
-
     error = None
     print('--------------------------{}------------------'.format(request.form))
     if request.method == 'POST':
@@ -56,9 +37,17 @@ def register():
             if password != password2:
                 flash('Passwords dont match')
                 error = "Passwords don't match"
+            else:
+                user = insert_account(username, password)
+                if not user:
+                    flash('Username exists')
+                    error = 'Username exists'
         #If signin IN
         else:
-            if request.form['password'] != 'password' or request.form['username'] != 'admin':
+            username = request.form['username']
+            password = request.form['password']
+            check = check_password(username, password)
+            if not check:
                 flash('Incorrect username/password')
                 error = 'Incorrect username/password'
             else:
