@@ -50,8 +50,14 @@
 	        $( 'div.msg_history').append('<div class="incoming_msg"><div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div><div class="received_msg"><div class="received_withd_msg"><p>'+msg.message+'</p><span class="time_date"> </span> </div></div></div>')
 	}
       })
-    </script>
 
+    </script>
+	<script>
+		function test(){
+			var inputs = document.querySelectorAll('chat_list');
+			console.log(2);
+		}
+	</script>
 <div class="container">
 <h3 class=" text-center">Messaging</h3>
 <div class="messaging">
@@ -81,7 +87,7 @@
                 </div>
               </div>
             </div>
-            <div class="chat_list">
+            <div class="chat_list" onclick="test()">
               <div class="chat_people">
                 <div class="chat_img"> <img src="https://amp.businessinsider.com/images/5899ffcf6e09a897008b5c04-750-750.jpg"></div>
                 <div class="chat_ib">

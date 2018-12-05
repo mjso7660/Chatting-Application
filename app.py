@@ -1,8 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from flask_socketio import SocketIO
 from login import check_password
-from login import insert_account
-from login import remove_account
 import json as js
 import login
 
@@ -23,9 +21,12 @@ def sess():
         return render_template('register.html')
     else:
         return render_template('chat.html')
-
+ 
 @app.route('/register', methods=['Get','POST'])
 def register():
+    
+    if session.get('logged_in'):
+        return render_template('chat.html')
     error = None
     print('--------------------------{}------------------'.format(request.form))
     if request.method == 'POST':
@@ -37,17 +38,9 @@ def register():
             if password != password2:
                 flash('Passwords dont match')
                 error = "Passwords don't match"
-            else:
-                user = insert_account(username, password)
-                if not user:
-                    flash('Username exists')
-                    error = 'Username exists'
         #If signin IN
         else:
-            username = request.form['username']
-            password = request.form['password']
-            check = check_password(username, password)
-            if not check:
+            if request.form['password'] != 'password' or request.form['username'] != 'admin':
                 flash('Incorrect username/password')
                 error = 'Incorrect username/password'
             else:
