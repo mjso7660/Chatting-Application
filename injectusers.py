@@ -1,12 +1,12 @@
 from mongoengine import *
 from time import time
+from pymongo.errors import DuplicateKeyError
 import user
 import chat
 import chatroom
 import sys
 from time import time
 
-connect('mydatabase')
 
 file = open(sys.argv[1], 'rt', encoding='UTF-8')
 file.readline()
@@ -14,17 +14,15 @@ begin = time()
 
 i = 0
 batchtime = time()
+u = set()
+
 for line in file:
 	l = line.strip().split(',',5)
-
-	u = []
 	# inject users
 	if l[3] != '':
-		u1 = user.Users.objects(username=l[3]).modify(set__username=l[3],set__pw=l[3],upsert=True)
-		u.append(u1)
+		u.add(l[3])
 	if l[4] != '':
-		u2 = user.Users.objects(username=l[4]).modify(set__username=l[4],set__pw=l[4],upsert=True)
-		u.append(u2)
+		u.add(l[4])
 
 	'''
 	# inject chatrooms
@@ -36,9 +34,23 @@ for line in file:
 	if u[0] is not None and c is not None:
 		chat.Chats.objects(user=u[0].id, chatroom=c.id, date=l[2],message=l[5]).modify(user=u[0].id, chatroom=c.id, date=l[2],message=l[5],upsert=True)
 	'''
-
 	i += 1
-	if i % 1000 == 0:
-		print('%g\t%g\t%g'%(i/1000,time()-batchtime, time()-begin))
+	if i % 1000000 == 0:
+		print('Reading line: %8.0f\t%.2f\t%.2f'%(i,time()-batchtime, time()-begin))
 		batchtime = time()
+
+
+i = 0
+begin=time()
+for us in u:
+	i += 1
+	try:
+		user.myusers.insert_one({'username': us, 'pw': user.encryptPassword(us)})
+	except DuplicateKeyError:
+		pass
+
+	if i % 1000 == 0:
+		print('Inserting record: %g/%g\t%.2f\t%.2f'%(i,len(u),time()-batchtime, time()-begin))
+		batchtime = time()
+
 print("Time elapsed in seconds: " + str(time()-begin))
