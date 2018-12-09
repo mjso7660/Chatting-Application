@@ -7,7 +7,7 @@ import user
 
 class Chatrooms(Document):
 	chatroomID = StringField(required=True)
-	channel = StringField(required=True, unique_with=chatroomID)
+	channel = StringField(required=True)
 	users = ListField(ReferenceField(user.Users), required=True)
 
 def makeChatroom(chatroomID, channel, users):

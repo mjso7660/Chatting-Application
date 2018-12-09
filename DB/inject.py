@@ -17,10 +17,10 @@ for line in file:
 	u = []
 	# inject users
 	if l[3] != '':
-		u1 = user.Users.objects(username=l[3], pw=l[3]).modify(set__username=l[3],set__pw=user.encrypt_password(l[3]),upsert=True)
+		u1 = user.Users.objects(username=l[3]).modify(set__username=l[3],set__pw=user.encrypt_password(l[3]),upsert=True)
 		u.append(u1)
 	if l[4] != '':
-		u2 = user.Users.objects(username=l[4], pw=l[4]).modify(set__username=l[4],set__pw=user.encrypt_password(l[4]),upsert=True)
+		u2 = user.Users.objects(username=l[4]).modify(set__username=l[4],set__pw=user.encrypt_password(l[4]),upsert=True)
 		u.append(u2)
 
 	# inject chatrooms
