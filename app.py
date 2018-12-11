@@ -79,5 +79,19 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 def handle_search(json, methods=['GET', 'POST']):
     print('received search: ' + str(json))
 
+@socketio.on('get_message')
+def get_message(json, methods=['GET', 'POST']):
+    '''
+    when changing chat tab
+    '''
+    #TODO: get message
+    print(str(json))
+    
+@socketio.on('test')
+def test(json, methods=['GET', 'POST']):
+    #TODO: get message
+    some_data = {0:'t1',1:'t2'}
+    socketio.emit('message_history',some_data, callback=messageReceived)
+
 if __name__ == '__main__':
     socketio.run(app, debug=True)
