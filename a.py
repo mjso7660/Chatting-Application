@@ -23,7 +23,6 @@ for cr in chatroom.getN(u):
 	print('----------------------------------------')
 	start = time()
 
-
 	# how to print chats in chatrooms
 	for x in chat.getChats(u, cr):
 		print(x)

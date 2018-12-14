@@ -42,11 +42,7 @@ def removeAccount(id,password):
 	print("removed id:" + id)
 
 def insertAccount(id, password):
-	result = []
-	for x in myusers.find({'username': id}):
-		result.append(x)
-	if len(result) > 0:
-		return False
-	else:
-		myusers.insert_one({'username': id,'pw': encryptPassword(password)})
-		return True
+	try:
+		return myusers.insert_one({'username': id,'pw': encryptPassword(password)})
+	except pymongo.errors.DuplicateKeyError:
+		return 'DuplicateKeyError'
