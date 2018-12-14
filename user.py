@@ -1,4 +1,3 @@
-from mongoengine import *
 import pymongo
 from passlib.context import CryptContext
 
@@ -16,14 +15,16 @@ mychats = mydb["chats"]
 # db = mydatabase
 # collection = users
 
+''' Schema
 class Users(Document):
 	username = StringField(required=True, unique=True)
 	pw = StringField(required=True)
+'''
 
-# get chatrooms
-# get chats
-# search chats
+def getUser(id):
+	return myusers.find_one({'username': id})
 
+# Login / User Control
 def encryptPassword(password):
     return pwd_context.encrypt(password)
 
@@ -49,6 +50,3 @@ def insertAccount(id, password):
 	else:
 		myusers.insert_one({'username': id,'pw': encryptPassword(password)})
 		return True
-
-def getUser(id):
-	return myusers.find({'username': id})[0]

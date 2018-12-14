@@ -8,11 +8,29 @@ import sys
 from time import time
 
 
-u = user.myusers.find_one({'username':'stuNNed'})
-print('user')
-print(u)
-print('chatrooms')
-print(user.mychatrooms.find_one({'users':u['_id']}))
-print('chats')
-for x in user.mychats.find({'user':u['_id']}):
-	print(x)
+#u = user.myusers.find_one({'username':'stuNNed'})
+
+# query for users
+u = user.getUser('stuNNed')
+
+# query for chatrooms. specifying N will allow adjustment of the return size
+for cr in chatroom.getN(u):
+	print()
+	# how to print username
+	print('user:', u['username'])
+	# how to print chat rooms and channels
+	print('chatroom:',cr['chatroomID'], cr['channel'])
+	print('----------------------------------------')
+	start = time()
+
+
+	# how to print chats in chatrooms
+	for x in chat.getChats(u, cr):
+		print(x)
+
+
+	# how to search for chats
+	for x in chat.searchChat(cr,"yes"):
+		print(x)
+	print(time()-start)
+	print('----------------------------------------')
