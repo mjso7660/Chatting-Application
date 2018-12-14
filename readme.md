@@ -13,7 +13,7 @@ to do for db configuration
 	first two operations will take less than 20 min
 	the last program will run for around 4 hours - probably because it is not to well optimized
 
-# 4. create index for chats in mongo shell
+# 4. Create index for chats in mongo shell
 
 	// Indexing for text search
 	db.chats.createIndex({chatroom:1,message:"text"})
