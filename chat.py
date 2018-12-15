@@ -28,6 +28,12 @@ def getChats(u, chatroom, N=50):
 
 def searchChat(chatroom, keyword):
 	# return lists of chat that contain the keyword and few neighboring chats
+	result = []
 	chats = user.mychats.find({'chatroom': chatroom['_id'], '$text': {'$search':keyword}})
-	return chats
+	for x in chats:
+		if x['user'] == u['_id']:
+			result.append({'sender':'me', 'message':x['message']})
+		else:
+			result.append({'sender':'other', 'message':x['message']})
+	return result
 
