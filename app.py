@@ -79,14 +79,18 @@ def handle_search(json, methods=['GET', 'POST']):
 
 @socketio.on('boot')
 def boot(json, methods=['GET', 'POST']):
-	list_data = [['abc','def'],['123','456']]	#list of string
-	socketio.emit('update_list',list_data, callback=messageReceived)
+	u = user.getUser(session['username'])
+	cr = chatroom.getN(u,10)
+	l = []
+	for x in cr:
+		l.append(chatroom.getUsernames(x))
+	print(l)
+	socketio.emit('update_list',l, callback=messageReceived)
 
 @socketio.on('test')
 def test(json, methods=['GET', 'POST']):
 	index = json['data']
 	u = user.getUser(session['username'])
-	session['user'] = str(u['_id'])
 	cr = chatroom.getN(u,10)
 	l = []
 	for x in cr:
