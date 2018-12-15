@@ -21,9 +21,9 @@ def getChats(u, chatroom, N=50):
 	chats = user.mychats.find({'chatroom': chatroom['_id']}).limit(N)
 	for x in chats:
 		if x['user'] == u['_id']:
-			result.append({'sender':'me', 'message':x['message']})
+			result.append({'sender':'me', 'message':x['message'].replace('\"','')})
 		else:
-			result.append({'sender':'other', 'message':x['message']})
+			result.append({'sender':'other', 'message':x['message'].replace('\"','')})
 	return result
 
 def searchChat(chatroom, keyword):
@@ -32,8 +32,8 @@ def searchChat(chatroom, keyword):
 	chats = user.mychats.find({'chatroom': chatroom['_id'], '$text': {'$search':keyword}})
 	for x in chats:
 		if x['user'] == u['_id']:
-			result.append({'sender':'me', 'message':x['message']})
+			result.append({'sender':'me', 'message':x['message'].replace('\"','')})
 		else:
-			result.append({'sender':'other', 'message':x['message']})
+			result.append({'sender':'other', 'message':x['message'].replace('\"','')})
 	return result
 

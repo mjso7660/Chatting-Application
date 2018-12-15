@@ -40,5 +40,5 @@ def getInfo(chatroom):
 		us = user.myusers.find_one({'_id':u})
 		names.append(us['username'])
 	c = user.mychats.find_one({'chatroom': cr['_id']})
-	result = {'users':names, 'date': c['date'], 'message': c['message']}
+	result = {'users':names, 'date': c['date'][:10], 'message': c['message']}
 	return result
