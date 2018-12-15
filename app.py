@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 socketio = SocketIO(app)
 username = ''
+index = 0
 
 @app.route('/')
 def init():
@@ -74,8 +75,16 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 	socketio.emit('my response', json, callback=messageReceived)
 
 @socketio.on('search')
-def handle_search(json, methods=['GET', 'POST']):
-	print('received search: ' + str(json))
+def search(json, methods=['GET', 'POST']):
+	global index
+	u = user.getUser(session['username'])
+	cr = chatroom.getN(u,10)
+	l = []
+	for x in cr:
+		l.append(x)
+	print(json['message'])
+	chat_dat = chat.searchChat(u,l[index],json['message'])
+	socketio.emit('message_history',chat_dat)
 
 @socketio.on('boot')
 def boot(json, methods=['GET', 'POST']):
@@ -89,6 +98,7 @@ def boot(json, methods=['GET', 'POST']):
 
 @socketio.on('test')
 def test(json, methods=['GET', 'POST']):
+	global index
 	index = json['data']
 	u = user.getUser(session['username'])
 	cr = chatroom.getN(u,10)

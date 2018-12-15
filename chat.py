@@ -26,7 +26,7 @@ def getChats(u, chatroom, N=50):
 			result.append({'sender':'other', 'message':x['message'].replace('\"','')})
 	return result
 
-def searchChat(chatroom, keyword):
+def searchChat(u, chatroom, keyword):
 	# return lists of chat that contain the keyword and few neighboring chats
 	result = []
 	chats = user.mychats.find({'chatroom': chatroom['_id'], '$text': {'$search':keyword}})
