@@ -33,3 +33,10 @@ def createChatroom(chatroomID, channel, users):
 	cr = {'chatroomID': chatroomID, 'channel': channel, '$addToSet':{'users': uidlist}}
 	mychatrooms.insert_one(cr)
 
+def getUsernames(chatroom):
+	cr = user.mychatrooms.find_one({'chatroomID': chatroom['chatroomID'], 'channel': chatroom['channel']})
+	names = []
+	for u in cr['users']:
+		us = user.myusers.find_one({'_id':u})
+		names.append(us['username'])
+	return names

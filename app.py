@@ -94,6 +94,7 @@ def test(json, methods=['GET', 'POST']):
 	l = []
 	for x in cr:
 		l.append(x)
+		print(chatroom.getUsernames(x))
 	print(index)
 	some_data = chat.getChats(u,l[index],500)
 	#some_data = [{'sender': 'me', 'message': 't1'},{'sender': 'oth', 'message': 't2'}]
