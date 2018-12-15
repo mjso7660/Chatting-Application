@@ -71,7 +71,7 @@ def messageReceived(methods=['GET', 'POST']):
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
 	print('received my event: ' + str(json))
-	socketio.emit('your response', json, callback=messageReceived)
+	socketio.emit('my response', json, callback=messageReceived)
 
 @socketio.on('search')
 def handle_search(json, methods=['GET', 'POST']):

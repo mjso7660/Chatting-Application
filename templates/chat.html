@@ -69,15 +69,9 @@
 		}
 	  })
       socket.on( 'my response', function( msg ) {
-	if(typeof msg.message!=='undefined'){
+	if((typeof msg.message!=='undefined') && msg.message.replace(/^\s+|\s+$/g,'') != ''){
           var dt = new Date()
 	        $( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+msg.message+'</p><span class="time_date"> </span> </div></div>')
-	}
-      })
-      socket.on( 'your response', function( msg ) {
-	if(typeof msg.message!=='undefined'){
-	        //$( 'div.msg_history').append('<div class="outgoing_msg"><div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div><div class="received_msg"><div class="received_withd_msg"><p>'+msg.message+'</p><span class="time_date"> </span> </div></div></div>')
-			$( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+msg.message+'</p><span class="time_date"> </span> </div></div>')
 	}
       })
 	  
