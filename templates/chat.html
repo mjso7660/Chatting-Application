@@ -19,7 +19,7 @@
       var socket = io.connect('http://' + document.domain + ':' + location.port);
       socket.on( 'connect', function() {
         socket.emit( 'test', {
-          data: 'User Connected'
+          data: 0
         } )
         var form = $( 'form.chat' ).on( 'submit', function( e ) {
           e.preventDefault()
@@ -81,8 +81,8 @@
 		}
 		$('.incoming_msg').remove();
 		$('.received_msg').remove();
-		socket.emit('get_message',{
-			uname: name
+		socket.emit('test',{
+			data: i
 		})
 	  }
     </script>
@@ -108,7 +108,73 @@
             </div>
           </div>
           <div class="inbox_chat">
-		  
+			<!--				INBOX CHAT COMES HERE				 -->		  
+		    <div class="chat_list active_chat" onclick=test(0)>
+              <div class="chat_people">
+                <div class="chat_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png"></div>
+                <div class="chat_ib">
+                  <h5>MediCooper<span class="chat_date">Oct 21</span></h5>
+					<p>How can I help you today?</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list" onclick=test(1)>
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://amp.businessinsider.com/images/5899ffcf6e09a897008b5c04-750-750.jpg"></div>
+                <div class="chat_ib">
+                  <h5>Dr. Park<span class="chat_date">Oct 20</span></h5>
+                  <p>Turner syndrome can cause a variety of medical and developmental problems, including short height, failure of the ovaries to develop and heart defects.</p>
+                    
+                </div>
+              </div>
+            </div>
+            <div class="chat_list" onclick=test(2)>
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTyWlY1SRu2M653bjl0x_cgk_NY4xidK9xalcVjaOa6L0F1ttfcA"></div>
+                <div class="chat_ib">
+                  <h5>Brittle Bone Disease Community<span class="chat_date">Oct 19</span></h5>
+		  <p>Turner syndrome may be diagnosed before birth (prenatally), during infancy or in early childhood. </p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list" onclick=test(3)>
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://i.stack.imgur.com/rYsym.png"></div>
+                <div class="chat_ib">
+                  <h5>Anonymous Blue<span class="chat_date">Oct 18</span></h5>
+		  <p>Clinical signs may vary from person to person (clinical heterogeneity), even within families.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list"onclick=test(4)>
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://avatars1.githubusercontent.com/u/540587?s=88&v=4"></div>
+                <div class="chat_ib">
+                  <h5>Anonymous Green<span class="chat_date">Oct 18</span></h5>
+		  <p>Turner syndrome, a condition that affects only females, results when one of the X chromosomes (sex chromosomes) is missing or partially missing. </p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list" onclick=test(5)>
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://avatars3.githubusercontent.com/u/9485711?s=88&v=4" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Anonymous Purple <span class="chat_date">Oct 17</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Oct 16</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
 		  <!--				INBOX CHAT COMES HERE				 -->
           
 		  </div>

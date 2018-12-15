@@ -55,7 +55,7 @@ def login():
 def usermain(username, methods=['GET', 'POST']):
 	u = user.getUser(session['username'])
 	session['user'] = str(u['_id'])
-	cr = chatroom.getN(u,20)
+	#cr = chatroom.getN(u,20)
 	# for x in cr:
 		# print(x)
 		# cs = chat.getChats(u, x, 20)
@@ -87,13 +87,14 @@ def get_message(json, methods=['GET', 'POST']):
     print(str(json))
 @socketio.on('test')
 def test(json, methods=['GET', 'POST']):
+	index = json['data']
 	u = user.getUser(session['username'])
 	session['user'] = str(u['_id'])
-	cr = chatroom.getN(u,1)
+	cr = chatroom.getN(u,10)
+	l = []
 	for x in cr:
-		print(x)
-		some_data = chat.getChats(u, x, 20)
-		
+		l.append(x)
+	some_data = chat.getChats(u,l[index],20)
 	#some_data = [{'sender': 'me', 'message': 't1'},{'sender': 'oth', 'message': 't2'}]
 	socketio.emit('message_history',some_data, callback=messageReceived)
 @app.route('/logout')
