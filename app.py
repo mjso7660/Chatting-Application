@@ -83,7 +83,7 @@ def boot(json, methods=['GET', 'POST']):
 	cr = chatroom.getN(u,10)
 	l = []
 	for x in cr:
-		l.append(chatroom.getUsernames(x))
+		l.append(chatroom.getInfo(x))
 	print(l)
 	socketio.emit('update_list',l, callback=messageReceived)
 
