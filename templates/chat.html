@@ -21,6 +21,9 @@
         socket.emit( 'boot', {
           data: 0
         } )
+		socket.emit( 'test', {
+          data: 0
+        } )
         var form = $( 'form.chat' ).on( 'submit', function( e ) {
           e.preventDefault()
           let user_input = $( 'input.write_msg' ).val()
