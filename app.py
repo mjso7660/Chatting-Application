@@ -19,15 +19,20 @@ def init():
 	else:
 		return redirect(url_for('login'))
 
+#TODO change name of login to register b/c login imported
 @app.route('/login', methods=['Get','POST'])
 def login():
+    # < --------------------  ADDED CODE ----------------------->
+	if 'username' in session:
+		redirect(url_for('usermain',username=session['username']))
+    # < --------------------  ADDED CODE ----------------------->        
 	error = None
 	print('--------------------------{}------------------'.format(request.form))
 	if request.method == 'POST':
 		#TODO: If signing UP
+		username = request.form['username']
+		password = request.form['password']
 		if request.form['email']:
-			username = request.form['username']
-			password = request.form['password']
 			password2 = request.form['password2']
 			if password != password2:
 				flash('Passwords dont match')
@@ -37,15 +42,13 @@ def login():
 					error = 'Username exists'
 		#If signin IN
 		else:
-			username = request.form['username']
-			password = request.form['password']
 			print(username,password)
 			check = user.checkPassword(username, password)
 			if not check:
 				error = 'Incorrect username/password'
 			else:
 				session['username'] = username
-				return usermain(username)
+				return usermain(username)   #redirect?
 	return render_template('register.html', error=error)
 
 @app.route('/index/<username>')
@@ -74,6 +77,20 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 @socketio.on('search')
 def handle_search(json, methods=['GET', 'POST']):
 	print('received search: ' + str(json))
+
+@socketio.on('get_message')
+def get_message(json, methods=['GET', 'POST']):
+    '''
+    when changing chat tab
+    '''
+    #TODO: get message
+    print(str(json))
+
+@socketio.on('test')
+def test(json, methods=['GET', 'POST']):
+    #TODO: get message
+    some_data = {0:'t1',1:'t2'}
+    socketio.emit('message_history',some_data, callback=messageReceived)
 
 @app.route('/logout')
 def logout(methods=['GET', 'POST']):
