@@ -65,7 +65,7 @@
 		console.log(msg)
 		console.log(333333)
 		for(var i = 0; i < len; i++){
-			$('div.inbox_chat').append('<div class="chat_list active_chat" onclick=test('+i+')><div class="chat_people"><div class="chat_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png"></div><div class="chat_ib"><h5>'+msg[i]+'<span class="chat_date">Oct 21</span></h5><p>How can I help you today?</p></div></div></div>')
+			$( 'div.msg_history').append('<div class="incoming_msg"><div class="incoming_msg_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png" alt="sunil"> </div> <div class="received_msg"><div class="received_withd_msg"> <p>'+his[k]['message']+'</p><span class="time_date"> </span></div></div></div>') 
 		}
 	  })
       socket.on( 'my response', function( msg ) {
