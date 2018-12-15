@@ -26,10 +26,10 @@ def getUser(id):
 
 # Login / User Control
 def encryptPassword(password):
-    return pwd_context.encrypt(password)
+	return pwd_context.encrypt(password)
 
 def checkEncryptedPassword(password, hashed):
-    return pwd_context.verify(password, hashed)
+	return pwd_context.verify(password, hashed)
 
 def checkPassword(id, password):
 	print("Login attempt: {username:" + id + ",pw:" + password + "}")

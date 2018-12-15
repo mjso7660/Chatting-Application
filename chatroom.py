@@ -23,12 +23,13 @@ def getN(user1, N = 20):
 	result = user.mychatrooms.find({'users':user1['_id']}).limit(N)
 	return result
 
-def makeChatroom(chatroomID, channel, users):
+# add try catch block
+def createChatroom(chatroomID, channel, users):
 	# make chatroom for multiple users
-	userlist = user.myusers.find({'users': users})
 	uidlist = []
-	for user in userlist:
-		uidlist.append(user['_id'])
-	cr = {'chatroomID': chatroomID, 'channel': channel, '$addToSet':{'users': users}}
+	for u in users:
+		userq = user.myusers.find_one({'users': u})
+		uidlist.append(userq['_id'])
+	cr = {'chatroomID': chatroomID, 'channel': channel, '$addToSet':{'users': uidlist}}
 	mychatrooms.insert_one(cr)
 

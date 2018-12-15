@@ -22,10 +22,10 @@ def init():
 #TODO change name of login to register b/c login imported
 @app.route('/login', methods=['Get','POST'])
 def login():
-    # < --------------------  ADDED CODE ----------------------->
+	# < --------------------  ADDED CODE ----------------------->
 	#if 'username' in session:
 	#	redirect(url_for('usermain',username=session['username']))
-    # < --------------------  ADDED CODE ----------------------->        
+	# < --------------------  ADDED CODE ----------------------->        
 	error = None
 	print('--------------------------{}------------------'.format(request.form))
 	if request.method == 'POST':
@@ -80,11 +80,11 @@ def handle_search(json, methods=['GET', 'POST']):
 
 @socketio.on('get_message')
 def get_message(json, methods=['GET', 'POST']):
-    '''
-    when changing chat tab
-    '''
-    #TODO: get message
-    print(str(json))
+	'''
+	when changing chat tab
+	'''
+	#TODO: get message
+	print(str(json))
 @socketio.on('test')
 def test(json, methods=['GET', 'POST']):
 	index = json['data']
@@ -94,9 +94,11 @@ def test(json, methods=['GET', 'POST']):
 	l = []
 	for x in cr:
 		l.append(x)
-	some_data = chat.getChats(u,l[index],20)
+	print(index)
+	some_data = chat.getChats(u,l[index],500)
 	#some_data = [{'sender': 'me', 'message': 't1'},{'sender': 'oth', 'message': 't2'}]
 	socketio.emit('message_history',some_data, callback=messageReceived)
+
 @app.route('/logout')
 def logout(methods=['GET', 'POST']):
 	print(111111111111111)
