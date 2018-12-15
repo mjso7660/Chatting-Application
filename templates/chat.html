@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript">
 	  function log_out(){
-		socket.emit('log_out',{data: ''})
+		socket.emit('logout',{data: ''})
 	  }
       var socket = io.connect('http://' + document.domain + ':' + location.port);
       socket.on( 'connect', function() {
@@ -45,13 +45,14 @@
 		
       } )
 	  socket.on('message_history',function(his){
-	    len = Object.keys(his).length
-	    console.log(Object.keys(his).length);
+	    //console.log(his);
+		console.log(his[0]);
+		len = Object(his).length
 		for(var k = 0; k < len; k++){
-		  if(k%2){
-			$( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+his[k]+'</p><span class="time_date"> </span> </div></div>')
+		  if(his[k]['sender']=='me'){
+			$( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+his[k]['message']+'</p><span class="time_date"> </span> </div></div>')
 		  }else{
-		    $( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+his[k]+'</p><span class="time_date"> </span> </div></div>')
+		    $( 'div.msg_history').append('<div class="incoming_msg"><div class="incoming_msg_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png" alt="sunil"> </div> <div class="received_msg"><div class="received_withd_msg"> <p>'+his[k]['message']+'</p><span class="time_date"> </span></div></div></div>') 
 		  }
 		}
 	  })

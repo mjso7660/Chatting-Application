@@ -23,8 +23,8 @@ def init():
 @app.route('/login', methods=['Get','POST'])
 def login():
     # < --------------------  ADDED CODE ----------------------->
-	if 'username' in session:
-		redirect(url_for('usermain',username=session['username']))
+	#if 'username' in session:
+	#	redirect(url_for('usermain',username=session['username']))
     # < --------------------  ADDED CODE ----------------------->        
 	error = None
 	print('--------------------------{}------------------'.format(request.form))
@@ -48,7 +48,7 @@ def login():
 				error = 'Incorrect username/password'
 			else:
 				session['username'] = username
-				return usermain(username)   #redirect?
+				return redirect(url_for('usermain',username=session['username']))
 	return render_template('register.html', error=error)
 
 @app.route('/index/<username>')
@@ -56,11 +56,11 @@ def usermain(username, methods=['GET', 'POST']):
 	u = user.getUser(session['username'])
 	session['user'] = str(u['_id'])
 	cr = chatroom.getN(u,20)
-	for x in cr:
-		print(x)
-		cs = chat.getChats(u, x, 20)
-		for c in cs:
-			print(c)
+	# for x in cr:
+		# print(x)
+		# cs = chat.getChats(u, x, 20)
+		# for c in cs:
+			# print(c)
 	print('hello world')
 	return render_template('chat.html')
 
@@ -85,17 +85,21 @@ def get_message(json, methods=['GET', 'POST']):
     '''
     #TODO: get message
     print(str(json))
-
 @socketio.on('test')
 def test(json, methods=['GET', 'POST']):
-    #TODO: get message
-    some_data = {0:'t1',1:'t2'}
-    socketio.emit('message_history',some_data, callback=messageReceived)
-
+	u = user.getUser(session['username'])
+	session['user'] = str(u['_id'])
+	cr = chatroom.getN(u,1)
+	for x in cr:
+		print(x)
+		some_data = chat.getChats(u, x, 20)
+		
+	#some_data = [{'sender': 'me', 'message': 't1'},{'sender': 'oth', 'message': 't2'}]
+	socketio.emit('message_history',some_data, callback=messageReceived)
 @app.route('/logout')
 def logout(methods=['GET', 'POST']):
+	print(111111111111111)
 	session.clear()
-	#session.pop('username',None)
 	return redirect(url_for('login'))
 
 if __name__ == '__main__':

@@ -21,9 +21,9 @@ def getChats(u, chatroom, N=50):
 	chats = user.mychats.find({'chatroom': chatroom['_id']}).limit(N)
 	for x in chats:
 		if x['user'] == u['_id']:
-			result.append(("me", x))
+			result.append({'sender':'me', 'message':x['message']})
 		else:
-			result.append(("oth", x))
+			result.append({'sender':'other', 'message':x['message']})
 	return result
 
 def searchChat(chatroom, keyword):
