@@ -10,48 +10,34 @@ socketio = SocketIO(app)
 
 username = ''
 
-@app.route('/')
+@app.route('/', methods=['Get','POST'])
 def sess():
     '''
     Directing to main page
     1) If not logged in: return to register.html
     2) If logged in: display the main page
     '''
-    if not session.get('logged_in'):
+    print('-----------------')
+    if 'username' not in session:
+        print('> Running sess(): username not in')
         return render_template('register.html')
     else:
+        print('> Running sess(): username in')
         return render_template('chat.html')
  
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-	'''
-	!Decaded
-	Initial login page
-    Only keep if statment that JB edited
-	'''
-	error = None
-	if request.method == 'POST':
-		username = request.form['username']
-		password = request.form['password']
-		check = check_password(username, password)
-		if check:
-			session['logged_in'] = True
-			return redirect(url_for('sess'))
-		else:
-			flash('Invalid credentails')
-			error = 'Invalid credentials'
-	return render_template('login.html', error=error)
-
 @app.route('/register', methods=['Get','POST'])
 def register():
-
+    if 'username' in session:
+        print(session)
+        print('> Running register(): username in')
+        return sess()
     error = None
     print('--------------------------{}------------------'.format(request.form))
     if request.method == 'POST':
         #TODO: If signing UP
+        username = request.form['username']
+        password = request.form['password']
         if request.form['email']:
-            username = request.form['username']
-            password = request.form['password']
             password2 = request.form['password2']
             if password != password2:
                 flash('Passwords dont match')
@@ -62,7 +48,7 @@ def register():
                 flash('Incorrect username/password')
                 error = 'Incorrect username/password'
             else:
-                session['logged_in'] = True
+                session['username'] = username
                 return redirect(url_for('sess'))
     return render_template('register.html', error=error)
 
@@ -92,6 +78,14 @@ def test(json, methods=['GET', 'POST']):
     #TODO: get message
     some_data = {0:'t1',1:'t2'}
     socketio.emit('message_history',some_data, callback=messageReceived)
+    
+@socketio.on('log_out')
+def log_out(json,method=['GET','POST']):
+    print(session)
+    session.pop('username',None)
+    print(session)
+    return render_template('register.html')
+    return sess()
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
