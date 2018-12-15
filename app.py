@@ -71,20 +71,17 @@ def messageReceived(methods=['GET', 'POST']):
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
 	print('received my event: ' + str(json))
-#    //socketio.emit('my response', json, callback=messageReceived)
 	socketio.emit('your response', json, callback=messageReceived)
 
 @socketio.on('search')
 def handle_search(json, methods=['GET', 'POST']):
 	print('received search: ' + str(json))
 
-@socketio.on('get_message')
-def get_message(json, methods=['GET', 'POST']):
-	'''
-	when changing chat tab
-	'''
-	#TODO: get message
-	print(str(json))
+@socketio.on('boot')
+def boot(json, methods=['GET', 'POST']):
+	list_data = [['abc','def'],['123','456']]	#list of string
+	socketio.emit('update_list',list_data, callback=messageReceived)
+
 @socketio.on('test')
 def test(json, methods=['GET', 'POST']):
 	index = json['data']
@@ -94,11 +91,8 @@ def test(json, methods=['GET', 'POST']):
 	l = []
 	for x in cr:
 		l.append(x)
-		print(chatroom.getUsernames(x))
-	print(index)
-	some_data = chat.getChats(u,l[index],500)
-	#some_data = [{'sender': 'me', 'message': 't1'},{'sender': 'oth', 'message': 't2'}]
-	socketio.emit('message_history',some_data, callback=messageReceived)
+	chat_data = chat.getChats(u,l[index],20)
+	socketio.emit('message_history',chat_data, callback=messageReceived)
 
 @app.route('/logout')
 def logout(methods=['GET', 'POST']):
