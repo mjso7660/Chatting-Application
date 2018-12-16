@@ -23,6 +23,7 @@ def init():
 #TODO change name of login to register b/c login imported
 @app.route('/login', methods=['Get','POST'])
 def login():
+	print('test')
 	# < --------------------  ADDED CODE ----------------------->
 	#if 'username' in session:
 	#	redirect(url_for('usermain',username=session['username']))
@@ -55,7 +56,6 @@ def login():
 @app.route('/index/<username>')
 def usermain(username, methods=['GET', 'POST']):
 	u = user.getUser(session['username'])
-	session['user'] = str(u['_id'])
 	#cr = chatroom.getN(u,20)
 	# for x in cr:
 		# #print(x)
@@ -116,11 +116,27 @@ def test(json, methods=['GET', 'POST']):
 	chat_data = chat.getChats(u,l[index],20)
 	socketio.emit('message_history',chat_data, callback=messageReceived)
 
+@socketio.on('add')
+def add(json,methods=['GET','POST']):
+	user_to_add = json['message']
+	#TODO: no user found
+	if user_to_add not in []:
+		socketio.emit('no_user',{'name':user_to_add})
+	#user found
+	else:
+		#create new chat room
+		pass
+
+
 @app.route('/logout')
-def logout(methods=['GET', 'POST']):
-	#print(111111111111111)
+def logout():
+	print(111111111111111)
 	session.clear()
 	return redirect(url_for('login'))
+
+@socketio.on('log_out')
+def log_out(json):
+	logout()
 
 if __name__ == '__main__':
 	socketio.run(app, debug=True)
