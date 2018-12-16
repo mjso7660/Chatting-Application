@@ -146,15 +146,10 @@ def add(json,methods=['GET','POST']):
 		chatroom.createChatroom('1', '1', users)
 
 
-@app.route('/logout')
+@app.route('/logout',methods=['GET','POST'])
 def logout():
-	print(111111111111111)
 	session.clear()
 	return redirect(url_for('login'))
-
-@socketio.on('log_out')
-def log_out(json):
-	logout()
 
 def process_json(data):
 	return_val = {'user':session['username'],'data':data}
