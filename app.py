@@ -14,7 +14,7 @@ index = 0
 
 @app.route('/')
 def init():
-	print(session)
+	#print(session)
 	if 'username' in session:
 		return redirect(url_for('usermain',username=session['username']))
 	else:
@@ -28,7 +28,7 @@ def login():
 	#	redirect(url_for('usermain',username=session['username']))
 	# < --------------------  ADDED CODE ----------------------->        
 	error = None
-	print('--------------------------{}------------------'.format(request.form))
+	#print('--------------------------{}------------------'.format(request.form))
 	if request.method == 'POST':
 		#TODO: If signing UP
 		username = request.form['username']
@@ -43,7 +43,7 @@ def login():
 					error = 'Username exists'
 		#If signin IN
 		else:
-			print(username,password)
+			#print(username,password)
 			check = user.checkPassword(username, password)
 			if not check:
 				error = 'Incorrect username/password'
@@ -58,11 +58,11 @@ def usermain(username, methods=['GET', 'POST']):
 	session['user'] = str(u['_id'])
 	#cr = chatroom.getN(u,20)
 	# for x in cr:
-		# print(x)
+		# #print(x)
 		# cs = chat.getChats(u, x, 20)
 		# for c in cs:
-			# print(c)
-	print('hello world')
+			# #print(c)
+	#print('hello world')
 	return render_template('chat.html')
 
 
@@ -71,29 +71,37 @@ def messageReceived(methods=['GET', 'POST']):
 
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
-	print('received my event: ' + str(json))
+	global index
+	#print('received my event: ' + str(json))
+	u = user.getUser(session['username'])
+	cr = chatroom.getN(u,20)
+	l = []
+	for x in cr:
+		l.append(x)
+	chat.insertChat(u,l[index],json['message'])
 	socketio.emit('my response', json, callback=messageReceived)
 
 @socketio.on('search')
 def search(json, methods=['GET', 'POST']):
 	global index
 	u = user.getUser(session['username'])
-	cr = chatroom.getN(u,10)
+	cr = chatroom.getN(u,20)
 	l = []
 	for x in cr:
 		l.append(x)
-	print(json['message'])
+	#print(json['message'])
+
 	chat_dat = chat.searchChat(u,l[index],json['message'])
 	socketio.emit('message_history',chat_dat)
 
 @socketio.on('boot')
 def boot(json, methods=['GET', 'POST']):
 	u = user.getUser(session['username'])
-	cr = chatroom.getN(u,10)
+	cr = chatroom.getN(u,20)
 	l = []
 	for x in cr:
 		l.append(chatroom.getInfo(x))
-	print(l)
+	#print(l)
 	socketio.emit('update_list',l, callback=messageReceived)
 
 @socketio.on('test')
@@ -101,7 +109,7 @@ def test(json, methods=['GET', 'POST']):
 	global index
 	index = json['data']
 	u = user.getUser(session['username'])
-	cr = chatroom.getN(u,10)
+	cr = chatroom.getN(u,20)
 	l = []
 	for x in cr:
 		l.append(x)
@@ -110,7 +118,7 @@ def test(json, methods=['GET', 'POST']):
 
 @app.route('/logout')
 def logout(methods=['GET', 'POST']):
-	print(111111111111111)
+	#print(111111111111111)
 	session.clear()
 	return redirect(url_for('login'))
 

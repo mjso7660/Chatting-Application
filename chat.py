@@ -1,5 +1,4 @@
 import user
-import chatroom
 import pymongo
 from time import time
 import datetime
@@ -11,9 +10,10 @@ class Chats(Document):
 	message = StringField(required=True)
 '''
 
-def insertChat(user, chatroom, date, text):
+def insertChat(u, chatroom, text):
 	#current date
 	d = datetime.datetime.now().isoformat()
+	user.mychats.insert_one({'chatroom':chatroom['_id'], 'user':u['_id'], 'date':d, 'message':text})
 
 # returns 20 chats
 def getChats(u, chatroom, N=50):

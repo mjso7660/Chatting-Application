@@ -32,7 +32,7 @@
           } )
           $( 'input.message' ).val( '' ).focus()
 			this.reset();
-			console.log(user_input)
+			
         } )
 
 		var form = $( 'form.search' ).on( 'submit', function( e ) {
@@ -45,12 +45,12 @@
           } )
           $( 'input.message' ).val( '' ).focus()
 			this.reset();
-			console.log(user_input);
+			
         } )
       } )
 	  socket.on('message_history',function(his){
 	    //console.log(his);
-		console.log(his[0]);
+		
 		len = Object(his).length
 		for(var k = len-1; k >=0; k--){
 		  if(his[k]['sender']=='me'){
@@ -62,7 +62,7 @@
 	  })
 	  socket.on('update_list',function(msg){
 		len = Object(msg).length;
-		console.log(msg)
+		
 		for(var i = 0; i < len; i++){
 			$('div.inbox_chat').append('<div class="chat_list active_chat" onclick=test('+i+')><div class="chat_people"><div class="chat_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png"></div><div class="chat_ib"><h5>'+msg[i]['users']+'<span class="chat_date">'+msg[i]['date']+'</span></h5><p>'+msg[i]['message']+'</p></div></div></div>')
 		}

@@ -28,7 +28,7 @@ def createChatroom(chatroomID, channel, users):
 	# make chatroom for multiple users
 	uidlist = []
 	for u in users:
-		userq = user.myusers.find_one({'users': u})
+		userq = user.myusers.find_one({'username': u})
 		uidlist.append(userq['_id'])
 	cr = {'chatroomID': chatroomID, 'channel': channel, '$addToSet':{'users': uidlist}}
 	mychatrooms.insert_one(cr)
