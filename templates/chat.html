@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript">
+      var user = '';
 	  function log_out(){
 		socket.emit('log_out',{data: ''})
 	  }
@@ -55,25 +56,35 @@
           })
         } )
       })
-	  socket.on('message_history',function(his){
-	    //console.log(his);
+	  socket.on('message_history',function(data){
+		his = data['data']
+	  	r_user = data['user']
 		
-		len = Object(his).length
-		for(var k = len-1; k >=0; k--){
-		  if(his[k]['sender']=='me'){
-			$( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+his[k]['message']+'</p><span class="time_date"> </span> </div></div>')
-		  }else{
-		    $( 'div.msg_history').append('<div class="incoming_msg"><div class="incoming_msg_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png" alt="sunil"> </div> <div class="received_msg"><div class="received_withd_msg"> <p>'+his[k]['message']+'</p><span class="time_date"> </span></div></div></div>') 
-		  }
+		if(user == r_user){
+			len = Object(his).length
+			for(var k = len-1; k >=0; k--){
+			  if(his[k]['sender']=='me'){
+				$( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+his[k]['message']+'</p><span class="time_date"> </span> </div></div>')
+			  }else{
+			    $( 'div.msg_history').append('<div class="incoming_msg"><div class="incoming_msg_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png" alt="sunil"> </div> <div class="received_msg"><div class="received_withd_msg"> <p>'+his[k]['message']+'</p><span class="time_date"> </span></div></div></div>') 
+			  }
+			}
 		}
 	  })
-	  socket.on('update_list',function(msg){
-		len = Object(msg).length;
-		
-		for(var i = 0; i < len; i++){
-			$('div.inbox_chat').append('<div class="chat_list active_chat" onclick=test('+i+')><div class="chat_people"><div class="chat_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png"></div><div class="chat_ib"><h5>'+msg[i]['users']+'<span class="chat_date">'+msg[i]['date']+'</span></h5><p>'+msg[i]['message']+'</p></div></div></div>')
+	  socket.on('update_list', function(data){
+		  	if(user == ''){
+		  	msg = data['data']
+		  	user = data['user']
+
+			len = Object(msg).length;
+			console.log(msg)
+			//console.log(msg2)
+			for(var i = 0; i < len; i++){
+				$('div.inbox_chat').append('<div class="chat_list active_chat" onclick=test('+i+')><div class="chat_people"><div class="chat_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png"></div><div class="chat_ib"><h5>'+msg[i]['users']+'<span class="chat_date">'+msg[i]['date']+'</span></h5><p>'+msg[i]['message']+'</p></div></div></div>')
+			}
 		}
 	  })
+		
       socket.on( 'my response', function( msg ) {
 	if((typeof msg.message!=='undefined') && msg.message.replace(/^\s+|\s+$/g,'') != ''){
           var dt = new Date()

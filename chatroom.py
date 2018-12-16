@@ -1,6 +1,6 @@
 import pymongo
 import user
-
+import datetime
 '''
 # schema
 class Chatrooms(Document):
@@ -26,12 +26,7 @@ def getN(user1, N = 20):
 # add try catch block
 def createChatroom(chatroomID, channel, users):
 	# make chatroom for multiple users
-	uidlist = []
-	for u in users:
-		userq = user.myusers.find_one({'username': u})
-		uidlist.append(userq['_id'])
-	cr = {'chatroomID': chatroomID, 'channel': channel, '$addToSet':{'users': uidlist}}
-	mychatrooms.insert_one(cr)
+	user.mychatrooms.update_one({'chatroomID': chatroomID, 'channel': channel}, {'$addToSet':{'users': {'$each':users}}}, True)
 
 def getInfo(chatroom):
 	cr = user.mychatrooms.find_one({'chatroomID': chatroom['chatroomID'], 'channel': chatroom['channel']})
@@ -40,5 +35,9 @@ def getInfo(chatroom):
 		us = user.myusers.find_one({'_id':u})
 		names.append(us['username'])
 	c = user.mychats.find_one({'chatroom': cr['_id']})
-	result = {'users':names, 'date': c['date'][:10], 'message': c['message']}
+	if c is None:
+		d = datetime.datetime.now().isoformat()
+		result = {'users':names, 'date': d[:10], 'message': ""}	
+	else:
+		result = {'users':names, 'date': c['date'][:10], 'message': c['message']}
 	return result
