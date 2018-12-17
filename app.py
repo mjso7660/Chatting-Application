@@ -12,7 +12,6 @@ app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 socketio = SocketIO(app)
 username = ''
 
-
 @app.route('/')
 def init():
 	#print(session)
@@ -120,6 +119,20 @@ def test(json, methods=['GET', 'POST']):
 	except:
 		return
 
+@socketio.on('pic')
+def pic(json, methods=['GET', 'POST']):
+	bin = json['data']
+	print('----------------------------')
+	print(bin[23:50])
+	print('----------------------------')
+	if 'ffd9' in bin:
+		print('FOUND')
+	u = session['username']
+	time = 123
+	#TODO: save binary
+	socketio.emit('img',{'data':bin})
+
+	
 @socketio.on('add')
 def add(json,methods=['GET','POST']):
 	user_to_add = json['message'].split(',')
