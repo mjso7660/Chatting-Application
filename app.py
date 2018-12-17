@@ -122,14 +122,9 @@ def test(json, methods=['GET', 'POST']):
 @socketio.on('pic')
 def pic(json, methods=['GET', 'POST']):
 	bin = json['data']
-	print('----------------------------')
-	print(bin[23:50])
-	print('----------------------------')
-	if 'ffd9' in bin:
-		print('FOUND')
 	u = session['username']
 	time = 123
-	#TODO: save binary
+	#TODO: save binary (ex: save 'bin' under 'u' with time.now())
 	socketio.emit('img',{'data':bin})
 
 	
