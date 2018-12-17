@@ -176,6 +176,8 @@
 			  </form>
             </div> 
         </div> 
+		<input type="file" id="files" name="files[]" multiple />
+		<output id="list"></output>
       </div> 
 </div> 
 
@@ -193,8 +195,7 @@
   }
 </style>
 
-<input type="file" id="files" name="files[]" multiple />
-<output id="list"></output>
+
 
 <script>
   function handleFileSelect(evt) {
@@ -239,9 +240,10 @@
 		return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
 	}
     socket.on( 'img', function( msg ){
-		var img = new Image();
+		var img = new Image(width=200);
 		img.src = msg['data'];
 		document.body.appendChild(img);
+		//document.getElementById("picture").appendChild(img);
 	})
 </script>
     </body>
