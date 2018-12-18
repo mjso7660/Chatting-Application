@@ -59,11 +59,10 @@
     socket.on('message_history',function(data){
     his = data['data']
       r_user = data['user']
-    
+    console.log(data)
     if(user == r_user){
       len = Object(his).length
       for(var k = len-1; k >=0; k--){
-        console.log(his[k]['message'].substring(0,10))
         if(his[k]['sender']=='me'){
           if(his[k]['message'].substring(0,10)=='data:image'){
             $( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><img width="200" src="'+his[k]['message']+'""><span class="time_date"> </span> </div></div>')
@@ -90,7 +89,6 @@
         user = data['user']
 
       len = Object(msg).length;
-      console.log(msg)
       //console.log(msg2)
       for(var i = 0; i < len; i++){
         $('div.inbox_chat').append('<div class="chat_list active_chat" onclick=test('+i+')><div class="chat_people"><div class="chat_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png"></div><div class="chat_ib"><h5>'+msg[i]['users']+'<span class="chat_date">'+msg[i]['date']+'</span></h5><p>'+msg[i]['message']+'</p></div></div></div>')

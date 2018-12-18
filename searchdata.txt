@@ -1,0 +1,146 @@
+{'sender': 'other', 'message': 'for my main user - yes - although I use a variety of wms for different users'}
+{'sender': 'me', 'message': 'and yes dell laptop sorry'}
+{'sender': 'me', 'message': 'yes it is loaded'}
+{'sender': 'me', 'message': 'yes, a few with gmplayer'}
+{'sender': 'other', 'message': 'yes, if you tweak.'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes.'}
+{'sender': 'me', 'message': 'yes, my card just got 24-bit support but i have to patch against cvs to use it, i can wait i guess, would be nice though :)'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes, you can'}
+{'sender': 'other', 'message': 'yes .. that allows your local machine to access the local resources'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes but on a 100mb network with multicast, can image a whole lab (16 computers) in 15-20 minutes.'}
+{'sender': 'me', 'message': 'yes however unicast here is slow as molasses if more than 2 or 3 clients'}
+{'sender': 'me', 'message': 'yes, unicast is okay if gigabit network i guess, never had one to play with :)'}
+{'sender': 'other', 'message': 'yes, partimage supports HFS'}
+{'sender': 'me', 'message': 'yes and quite easy to set up once get the network boot sorted :)'}
+{'sender': 'other', 'message': 'yes by default Ubuntu/Debian run in runlevel 2'}
+{'sender': 'me', 'message': 'yes, some of the newer ones support has only recent been added :)'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes, you need to use dpkg to force install or latest or something'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': "yes, chroot into your install, and 'grub-install /dev/hdX' where X is the hd where your mbr is"}
+{'sender': 'me', 'message': "it's compiled in, yes, i'm sure :)"}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': "stunned:yes, if you add the backport repo, you don't need marillat at all"}
+{'sender': 'me', 'message': "yes, it's not avail, only in hoary."}
+{'sender': 'me', 'message': 'yes but'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'Yes.  12,000 pieces of software, roughly.'}
+{'sender': 'me', 'message': 'yes, shorewall is available with ubuntu, in warty/main repo'}
+{'sender': 'me', 'message': "then 'yes'"}
+{'sender': 'me', 'message': 'yes, vga out from pc into back of laptop'}
+{'sender': 'me', 'message': 'yes...so just remove firefox installed with warty and install from mozilla.org?'}
+{'sender': 'other', 'message': 'yes and also rcS.d'}
+{'sender': 'me', 'message': 'it is orinoco card needing madwifi drivers?  yes then you will need linux-restricted-modules-yourkernelversionhere'}
+{'sender': 'me', 'message': 'sudo dpkg -i and sudo network-admin, yes'}
+{'sender': 'other', 'message': 'yes, i did that'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': "yes, not useful enough...it's a known problem which i don't think has been fixed"}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': "yes, it's a 7200 RPM drive, seagate. i386"}
+{'sender': 'other', 'message': "yes. and then i came here to get additional assistance. that page wasn't clear for me."}
+{'sender': 'me', 'message': 'yes, think so'}
+{'sender': 'other', 'message': 'yes that is how I got it running in Warty, plus I had to upgrade wireless-tools. No luck in Hoary though'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes, gamin'}
+{'sender': 'me', 'message': 'yes, true, sorry.'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes thanks'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes, but use gdm and autologin instead of startx mostly'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'if you can determine which program is printing it, yes'}
+{'sender': 'other', 'message': 'yes, see the ssh_config man page'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes, the installer does it for you then.'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes... should be seen as a newer version just by the way you name the .deb though...'}
+{'sender': 'me', 'message': 'yes :)'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': "yes but, what if apt-get can't find the program i ask for?"}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes, apt-get install rhythmbox'}
+{'sender': 'other', 'message': 'yes.'}
+{'sender': 'other', 'message': 'yes-ish but generally not recommended for the novice'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes, ok, exportfs -ra is to be run on the NFS server, ok'}
+{'sender': 'other', 'message': "yes, both directly and via 3rd party tool 'NFSManager'"}
+{'sender': 'other', 'message': "yes, gives 'Invalid Username/Password' which is bogus"}
+{'sender': 'other', 'message': 'My 1.8GHz AMD64 can keep up with a 3GHz p4 easily, yes.'}
+{'sender': 'me', 'message': 'yes, samuella'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': "yes, if you have universe repo's enabled."}
+{'sender': 'other', 'message': 'With Cedega, yes'}
+{'sender': 'me', 'message': 'yes, that is normal'}
+{'sender': 'me', 'message': 'yes there is an /etc/init.d/alsa'}
+{'sender': 'other', 'message': 'yes i checked :|'}
+{'sender': 'me', 'message': 'afaik yes'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes, of course ;)'}
+{'sender': 'me', 'message': '--force-yes'}
+{'sender': 'other', 'message': "yes, I think restrected is defined in /etc/apt/sources.list (there were a couple lines mentioning restricted), and yes, I'm n PPC"}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'me', 'message': "it's important not to mix repos and yes"}
+{'sender': 'other', 'message': 'Yes.'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes, locally it worked with filezilla ftp client in windows'}
+{'sender': 'me', 'message': "yes but what's the proper way to run k3bsetup?"}
+{'sender': 'me', 'message': "yes, X doesn't start, ok, thanks"}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes...'}
+{'sender': 'me', 'message': 'yes, highest i can go is 75, with using gtf and generating a modeline i noticed it says *desired* frequency this means i can set it at 85 only if monitor can handle 75, if this makes sense'}
+{'sender': 'other', 'message': 'mad phat laptop support is a design goal, yes'}
+{'sender': 'me', 'message': 'yes, then afterwards menu.lst is back the way it was before editing'}
+{'sender': 'other', 'message': 'from is the address you want mail to come from, envelop_from and use_from should be yes'}
+{'sender': 'other', 'message': 'before, yes and automatically displays new changelog entries to you'}
+{'sender': 'me', 'message': "set use_from should be 'yes' right?"}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'me', 'message': "yes it affects 'test' user"}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': 'yes, i had similar, had to force as well from a previous .tar.gz file extracted to /'}
+{'sender': 'me', 'message': "yes, that's what i was looking for, thanks, and thanks thoreauputic"}
+{'sender': 'me', 'message': 'then yes apt-cache search nomad then apt-get install it'}
+{'sender': 'me', 'message': "yes, looks that way, i'm having to load piix into the kernel and not as a module, is my only option to recompile kernel? (silly question, isn't it? ;)"}
+{'sender': 'other', 'message': 'via gst-ffmpeg, yes'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'me', 'message': "if it's in bin or sbin for superuser of /usr/local dir yes"}
+{'sender': 'other', 'message': 'da_don_bon, yes, I loave it.'}
+{'sender': 'other', 'message': 'yes evil like redmond evil'}
+{'sender': 'other', 'message': 'hyperbole yes'}
+{'sender': 'me', 'message': 'yes, on laptop'}
+{'sender': 'me', 'message': "yes i am, can i use those repo's with hoary?"}
+{'sender': 'other', 'message': 'Yes.'}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': 'direct rendering: Yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': ' sudo ./configure --with-cards=emu10k1 --with-sequencer=yes'}
+{'sender': 'me', 'message': 'yes but latest stable is 1.0.9b and not in ubuntu...is there still a way to build from source?'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': 'yes'}
+{'sender': 'other', 'message': ': yes, but yous still need to get the package from Sun I think.  The package just has a configuration tool.'}
+{'sender': 'other', 'message': 'yes, x can be reconfigured with dpkg. I told him to do that already, but he seems to have ignored it.'}
+{'sender': 'me', 'message': "yes, won't change when i change it"}
+{'sender': 'me', 'message': "yes how'd you know but i have two installed how to switch from one to anotehr? :\\"}
+{'sender': 'me', 'message': 'yes'}
+{'sender': 'other', 'message': "Yes, it's mentioned."}
+{'sender': 'me', 'message': 'yes, graveman runs fine here'}
+{'sender': 'me', 'message': "yes, i don't need that much functionality, only have one rule"}
+{'sender': 'other', 'message': 'yes. thanks'}
+{'sender': 'me', 'message': 'k thanks, yes crimsun, in gnome'}
+{'sender': 'me', 'message': 'yes, rhythmbox -d might help'}
+{'sender': 'other', 'message': 'yes, definitely'}

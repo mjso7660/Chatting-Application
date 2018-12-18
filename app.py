@@ -91,6 +91,7 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 
 @socketio.on('search')
 def search(json, methods=['GET', 'POST']):
+	print(json)
 	u = user.getUser(session['username'])
 	cr = chatroom.getN(u,20)
 	l = []
@@ -99,7 +100,9 @@ def search(json, methods=['GET', 'POST']):
 	#print(json['message'])
 
 	chat_dat = chat.searchChat(u,l[session['index']],json['message'])
-	socketio.emit('message_history',chat_dat)
+	print(chat_dat)
+	msg = {'data':chat_dat,'user':session['username']}
+	socketio.emit('message_history',msg)
 
 @socketio.on('boot')
 def boot(json, methods=['GET', 'POST']):

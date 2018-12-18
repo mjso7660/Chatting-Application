@@ -12,6 +12,7 @@ mydb = myclient["mydatabase"]
 myusers = mydb["users"]
 mychatrooms = mydb["chatrooms"]
 mychats = mydb["chats"]
+dummychat = mydb["dummy"]
 # db = mydatabase
 # collection = users
 

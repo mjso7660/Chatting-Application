@@ -14,7 +14,11 @@ f1 = open('chatdata.txt','w')
 f2 = open('searchdata.txt','w')
 # query for users
 u = user.getUser('stuNNed')
+
 start = time()
+chattime = 0
+searchtime = 0
+
 numchats = 0
 numsearch = 0
 numchatrooms = 0
@@ -27,18 +31,22 @@ for cr in chatroom.getall(u):
 	#print('----------------------------------------')
 	numchatrooms += 1
 	
+	tmp = time()
 	# how to print chats in chatrooms
 	for x in chat.getChats(u, cr, 10000):
 		f1.write(str(x) + "\n")
 		numchats += 1
-	
+	chattime += (time()-tmp)
+
+	tmp = time()
 	# how to search for chats
 	for x in chat.searchChat(u,cr,"yes"):
 		f2.write(str(x) + '\n')
 		numsearch += 1
-	
+	searchtime += (time()-tmp)
 print("number of chatrooms: " + str(numchatrooms))
 print("number of chats: " + str(numchats))
 print("number of searched chats: " + str(numsearch))
-print("time: " +str(time()-start))
-	
+print("total time: " +str(time()-start))
+print("Chat retrieval time: " +str(chattime))
+print("Search time: " +str(searchtime))

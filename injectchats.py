@@ -21,7 +21,7 @@ def insert_records(l,total):
 			batchtime = time()
 
 	try:
-		user.mychats.insert_many(records, ordered=False)
+		user.dummychat.insert_many(records, ordered=False)
 		#user.myusers.insert_one({'username': us, 'pw': user.encryptPassword(us)})
 	except BulkWriteError as bwe:
 		pprint(bwe.details)
