@@ -74,22 +74,19 @@ def messageReceived(methods=['GET', 'POST']):
 
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
+	print(type(json['message'][:30]))
+	u = user.getUser(session['username'])
+	cr = chatroom.getN(u,20)
+	l = []
+	for x in cr:
+		l.append(x)
+	if json['message'].strip() is not "":
+		chat.insertChat(u,l[session['index']],json['message'])
+	print(json['message'][:10])
 	if json['message'][:10] == 'data:image':
-		bin = json['message']
-		u = session['username']
-	
 		#Put into db (chatroom) with 'sender' and 'message' info
-		
-		time = 123
-		socketio.emit('img',{'data':bin})
-	else:
-		u = user.getUser(session['username'])
-		cr = chatroom.getN(u,20)
-		l = []
-		for x in cr:
-			l.append(x)
-		if json['message'].strip() is not "":
-			chat.insertChat(u,l[session['index']],json['message'])
+		socketio.emit('img',{'data':json['message']})
+	else:	
 		socketio.emit('my response', json, callback=messageReceived)
 
 @socketio.on('search')
