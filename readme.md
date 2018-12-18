@@ -19,6 +19,8 @@ to do for db configuration
 	db.chats.createIndex({chatroom:1,message:"text"})
 	// Indexing for date sort query
 	db.chats.createIndex({chatroom:1,date:-1})
+	// Indexing for users to query chatrooms
+	db.chatrooms.createIndex({users:1})
 
 	// this could be used for search of java, coffee, and shop
 	db.chats.find( chatroom: ______, { $text: { $search: "java coffee shop" } } )

@@ -14,15 +14,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript">
       var user = '';
-	  function log_out(){
-		socket.emit('log_out',{data: ''})
-	  }
+    function log_out(){
+    socket.emit('log_out',{data: ''})
+    }
       var socket = io.connect('http://' + document.domain + ':' + location.port);
       socket.on( 'connect', function() {
         socket.emit( 'boot', {
           data: 0
         } )
-		socket.emit( 'test', {
+    socket.emit( 'test', {
           data: 0
         } )
         var form = $( 'form.chat' ).on( 'submit', function( e ) {
@@ -32,11 +32,11 @@
             message : user_input
           } )
           $( 'input.message' ).val( '' ).focus()
-			this.reset();
-			
+      this.reset();
+      
         } )
 
-		var form = $( 'form.search' ).on( 'submit', function( e ) {
+    var form = $( 'form.search' ).on( 'submit', function( e ) {
           e.preventDefault()
           let user_input = $( 'input.search-bar' ).val()
           $('.incoming_msg').remove();
@@ -45,74 +45,76 @@
             message : user_input
           } )
           $( 'input.message' ).val( '' ).focus()
-			this.reset();
-			
+      this.reset();
+      
         } )
         var form = $( 'form.add' ).on( 'submit', function( e ) {
           e.preventDefault()
           let user_input = $( 'input.search-bar2' ).val()
           socket.emit('add',{
-          	message: user_input
+            message: user_input
           })
         } )
       })
-	  socket.on('message_history',function(data){
-		his = data['data']
-	  	r_user = data['user']
-		
-		if(user == r_user){
-			len = Object(his).length
-			for(var k = len-1; k >=0; k--){
-			  if(his[k]['sender']=='me'){
-				$( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+his[k]['message']+'</p><span class="time_date"> </span> </div></div>')
-			  }else{
-			    $( 'div.msg_history').append('<div class="incoming_msg"><div class="incoming_msg_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png" alt="sunil"> </div> <div class="received_msg"><div class="received_withd_msg"> <p>'+his[k]['message']+'</p><span class="time_date"> </span></div></div></div>') 
-			  }
-			}
-		}
-	  })
-	  socket.on('update_list', function(data){
-		  	if(user == ''){
-		  	msg = data['data']
-		  	user = data['user']
+    socket.on('message_history',function(data){
+    his = data['data']
+      r_user = data['user']
+    
+    if(user == r_user){
+      len = Object(his).length
+      for(var k = len-1; k >=0; k--){
+        if(his[k]['sender']=='me'){
+        $( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+his[k]['message']+'</p><span class="time_date"> </span> </div></div>')
+        }else{
+          $( 'div.msg_history').append('<div class="incoming_msg"><div class="incoming_msg_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png" alt="sunil"> </div> <div class="received_msg"><div class="received_withd_msg"> <p>'+his[k]['message']+'</p><span class="time_date"> </span></div></div></div>') 
+        }
+      }
+    }
+    })
+    socket.on('update_list', function(data){
+            $('.incoming_msg').remove();
+      $('.outgoing_msg').remove();
+        if(user == ''){
+        msg = data['data']
+        user = data['user']
 
-			len = Object(msg).length;
-			console.log(msg)
-			//console.log(msg2)
-			for(var i = 0; i < len; i++){
-				$('div.inbox_chat').append('<div class="chat_list active_chat" onclick=test('+i+')><div class="chat_people"><div class="chat_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png"></div><div class="chat_ib"><h5>'+msg[i]['users']+'<span class="chat_date">'+msg[i]['date']+'</span></h5><p>'+msg[i]['message']+'</p></div></div></div>')
-			}
-		}
-	  })
-		
+      len = Object(msg).length;
+      console.log(msg)
+      //console.log(msg2)
+      for(var i = 0; i < len; i++){
+        $('div.inbox_chat').append('<div class="chat_list active_chat" onclick=test('+i+')><div class="chat_people"><div class="chat_img"> <img src="http://2014.igem.org/wiki/images/f/fe/Cooper-Union.png"></div><div class="chat_ib"><h5>'+msg[i]['users']+'<span class="chat_date">'+msg[i]['date']+'</span></h5><p>'+msg[i]['message']+'</p></div></div></div>')
+      }
+    }
+    })
+    
       socket.on( 'my response', function( msg ) {
-	if((typeof msg.message!=='undefined') && msg.message.replace(/^\s+|\s+$/g,'') != ''){
+  if((typeof msg.message!=='undefined') && msg.message.replace(/^\s+|\s+$/g,'') != ''){
           var dt = new Date()
-	        $( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+msg.message+'</p><span class="time_date"> </span> </div></div>')
-	}
+          $( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><p>'+msg.message+'</p><span class="time_date"> </span> </div></div>')
+  }
       })
-	  
-	  function test(i){
-		var tabs = document.querySelectorAll('.chat_list');
-		for(var j = 0; j < tabs.length; j++){
-			if(j == i){
-				document.querySelectorAll('.chat_list')[j].className="chat_list active_chat";
-				var name = document.querySelectorAll('.chat_ib > h5')[j].innerHTML.split("<")[0];
-			}else{
-				document.querySelectorAll('.chat_list')[j].className="chat_list";
-			}	
-		}
-		$('.incoming_msg').remove();
-		$('.outgoing_msg').remove();
-		socket.emit('test',{
-			data: i
-		})
-	  }
-	  socket.on('no_user',function(e){
-	  	console.log(e)
-	  	alert('User ' + e.name + ' doesnt exist!')
-	  })
-	  
+    
+    function test(i){
+    var tabs = document.querySelectorAll('.chat_list');
+    for(var j = 0; j < tabs.length; j++){
+      if(j == i){
+        document.querySelectorAll('.chat_list')[j].className="chat_list active_chat";
+        var name = document.querySelectorAll('.chat_ib > h5')[j].innerHTML.split("<")[0];
+      }else{
+        document.querySelectorAll('.chat_list')[j].className="chat_list";
+      } 
+    }
+    $('.incoming_msg').remove();
+    $('.outgoing_msg').remove();
+    socket.emit('test',{
+      data: i
+    })
+    }
+    socket.on('no_user',function(e){
+      console.log(e)
+      alert('User ' + e.name + ' doesnt exist!')
+    })
+    
     </script>
 
 <div class="container">
@@ -126,64 +128,64 @@
             </div>
             <div class="srch_bar">
               <div class="stylish-input-group">
-				<form action="" method="POST" class="search">
-					<input type="text" class="search-bar"  placeholder="Search" >
-					<span class="input-group-addon">
-					<button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-					</span>
-				</form>
-			  </div>
-			</div>
+        <form action="" method="POST" class="search">
+          <input type="text" class="search-bar"  placeholder="Search" >
+          <span class="input-group-addon">
+          <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+          </span>
+        </form>
+        </div>
+      </div>
             <div class="recent_heading">
               <h4>Start new ></h4>
             </div>
             <div class='srch_bar'>
               <div class="stylish-input-group">
-				<form action="" method="POST" class="add">
-					<input type="text" class="search-bar2"  placeholder="Add member" >
-					<span class="input-group-addon">
-					<button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-					</span>
-				</form>
-			  </div>			  
+        <form action="" method="POST" class="add">
+          <input type="text" class="search-bar2"  placeholder="Add member" >
+          <span class="input-group-addon">
+          <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+          </span>
+        </form>
+        </div>        
             </div>
           </div>
           <div class="inbox_chat">
-			
-			<!--				INBOX CHAT COMES HERE				 -->
+      
+      <!--        INBOX CHAT COMES HERE        -->
           
-		  </div>
+      </div>
         </div>
-		<div class="mesgs"> 
+    <div class="mesgs"> 
           <div class="msg_history"> 
-		  
-		  <!--				MSG COMES HERE				 -->		  
-			<div class="incoming_msg"> 
+      
+      <!--        MSG COMES HERE         -->      
+      <div class="incoming_msg"> 
               <div class="received_msg"> 
                 <div class="received_withd_msg"> 
-				 </div> 
+         </div> 
              </div> 
           </div> 
-		  <div class="message_holder"> 
-		  </div> 
+      <div class="message_holder"> 
+      </div> 
         </div> 
         <div class="type_msg"> 
             <div class="input_msg_write"> 
-			  <form action="" method="POST" class="chat">
-				  <input type="text" class="write_msg" placeholder="Type a message" /> 
-				  <div class="msg_send_btn">
-						  <input type="submit" class="msg_send_btn"></div>
-			  </form>
+        <form action="" method="POST" class="chat">
+          <input type="text" class="write_msg" placeholder="Type a message" /> 
+          <div class="msg_send_btn">
+              <input type="submit" class="msg_send_btn"></div>
+        </form>
             </div> 
         </div> 
-		<input type="file" id="files" name="files[]" multiple />
-		<output id="list"></output>
+    <input type="file" id="files" name="files[]" multiple />
+    <output id="list"></output>
       </div> 
 </div> 
 
       
       <form action = "/logout" method=post>
-      	<button name= 'out' type="submit">Log Out</button>
+        <button name= 'out' type="submit">Log Out</button>
       </form>
       
     </div></div>
@@ -198,7 +200,10 @@
 
 
 <script>
+        $('.incoming_msg').remove();
+      $('.outgoing_msg').remove();
   function handleFileSelect(evt) {
+    console.log('func running')
     var files = evt.target.files; // FileList object
 
     // Loop through the FileList and render image files as thumbnails.
@@ -210,7 +215,7 @@
       }
 
       var reader = new FileReader();
-	  var reader2 = new FileReader();
+    var reader2 = new FileReader();
 
       // Closure to capture the file information.
       /*reader.onload = (function(theFile) {
@@ -222,29 +227,31 @@
           document.getElementById('list').insertBefore(span, null);
         };
       })(f);*/
-	  reader.onload = (function(theFile) {
+    reader.onload = (function(theFile) {
         return function(e) {
           // Render thumbnail.
-		  socket.emit('pic',{data: e.target.result})
+      socket.emit('my event',{message: e.target.result})
         };
       })(f);
 
       // Read in the image file as a data URL.
-	  reader.readAsDataURL(f);
+    reader.readAsDataURL(f);
     }
   }
 
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
   
-	function hexToBase64(str) {
-		return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
-	}
+  function hexToBase64(str) {
+    return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+  }
     socket.on( 'img', function( msg ){
-		var img = new Image(width=200);
-		img.src = msg['data'];
-		document.body.appendChild(img);
-		//document.getElementById("picture").appendChild(img);
-	})
+    $( 'div.msg_history').append('<div class="outgoing_msg"><div class="sent_msg"><span class="time_date"> </span> </div></div>')
+    var tabs = document.querySelectorAll('.sent_msg');
+    var img = new Image(width=200);
+    img.src = msg['data'];
+    document.querySelectorAll('.sent_msg')[tabs.length-1].appendChild(img);
+    //document.getElementById("picture").appendChild(img);
+  })
 </script>
     </body>
     </html>

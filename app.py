@@ -5,12 +5,15 @@ import chatroom
 import chat
 import json as js
 import login
-import random
+from random import randint
+from PIL import Image
+from bson import Binary
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 socketio = SocketIO(app)
 username = ''
+myimage = user.mydb['images']
 
 @app.route('/')
 def init():
@@ -42,7 +45,7 @@ def login():
 			else:
 				if user.insertAccount(username, password) is 'DuplicateKeyError':
 					error = 'Username exists'
-		#If signin IN
+		#If signin IN 
 		else:
 			#print(username,password)
 			check = user.checkPassword(username, password)
@@ -71,14 +74,23 @@ def messageReceived(methods=['GET', 'POST']):
 
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
-	#print('received my event: ' + str(json))
-	u = user.getUser(session['username'])
-	cr = chatroom.getN(u,20)
-	l = []
-	for x in cr:
-		l.append(x)
-	chat.insertChat(u,l[session['index']],json['message'])
-	socketio.emit('my response', json, callback=messageReceived)
+	if json['message'][:10] == 'data:image':
+		bin = json['message']
+		u = session['username']
+	
+		#Put into db (chatroom) with 'sender' and 'message' info
+		
+		time = 123
+		socketio.emit('img',{'data':bin})
+	else:
+		u = user.getUser(session['username'])
+		cr = chatroom.getN(u,20)
+		l = []
+		for x in cr:
+			l.append(x)
+		if json['message'].strip() is not "":
+			chat.insertChat(u,l[session['index']],json['message'])
+		socketio.emit('my response', json, callback=messageReceived)
 
 @socketio.on('search')
 def search(json, methods=['GET', 'POST']):
@@ -100,7 +112,7 @@ def boot(json, methods=['GET', 'POST']):
 	l = []
 	for x in cr:
 		l.append(chatroom.getInfo(x))
-	#print(l)
+	#print(l) 
 	msg = {'data':l,'user':session['username']}
 	socketio.emit('update_list',process_json(l),callback=messageReceived)
 
@@ -118,15 +130,19 @@ def test(json, methods=['GET', 'POST']):
 		socketio.emit('message_history',process_json(chat_data), callback=messageReceived)
 	except:
 		return
-
+'''
 @socketio.on('pic')
 def pic(json, methods=['GET', 'POST']):
 	bin = json['data']
 	u = session['username']
+	
+	image = myimage.insert_one({'data':bin})
+	img = myimage.find_one({'_id':image['_id']})
+	print(img['_id'])
 	time = 123
 	#TODO: save binary (ex: save 'bin' under 'u' with time.now())
 	socketio.emit('img',{'data':bin})
-
+'''
 	
 @socketio.on('add')
 def add(json,methods=['GET','POST']):
@@ -151,7 +167,9 @@ def add(json,methods=['GET','POST']):
 		socketio.emit('no_user',{'name':each})
 		return
 	else:
-		chatroom.createChatroom('1', '1', users)
+		a = str(randint(1,100000))
+		b = str(randint(1,100000))
+		chatroom.createChatroom(a, b, users)
 
 
 @app.route('/logout',methods=['GET','POST'])
