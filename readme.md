@@ -25,7 +25,7 @@ to do for db configuration
 	// this could be used for search of java, coffee, and shop
 	db.chats.find( chatroom: ______, { $text: { $search: "java coffee shop" } } )
 
-#5. Once running ...
+# 5. Once running ...
 
 Log-in page
 
