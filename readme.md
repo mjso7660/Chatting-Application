@@ -24,3 +24,17 @@ to do for db configuration
 
 	// this could be used for search of java, coffee, and shop
 	db.chats.find( chatroom: ______, { $text: { $search: "java coffee shop" } } )
+
+#5. Once running ...
+
+Log-in page
+
+![Alt text](login.png?raw=true "Title")
+
+Sign-in page
+
+![Alt text](sign_up.png?raw=true "Title")
+
+Chatting page
+
+![Alt text](chat.png?raw=true "Title")
